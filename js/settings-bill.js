@@ -6,6 +6,9 @@ function BillWithSetting() {
     var theWarningLevel = 0;
     var theCriticalLevel = 0;
 
+    var callsTotalCost = 0;
+    var smsCostTotal = 0;
+
     function setCallCost(callCost) {
         theCallCost = callCost;
 
@@ -25,7 +28,7 @@ function BillWithSetting() {
         return theSmsCost;
     }
 
-    function setWarningLevel() {
+    function setWarningLevel(warningLevel) {
         theWarningLevel = warningLevel;
     }
 
@@ -33,12 +36,58 @@ function BillWithSetting() {
         return theWarningLevel;
     }
 
-    function setCriticalLevel() {
+    function setCriticalLevel(criticalLevel) {
         theCriticalLevel = criticalLevel;
     }
 
     function getCriticalLevel() {
         return theCriticalLevel;
+    }
+
+    function makeCall() {
+        
+        if (!hasReachedCriticalLevel) {
+            callsTotalCost += theCallCost;
+        }
+        
+        
+    }
+
+    function getTotalCost() {
+        return callsTotalCost + smsCostTotal;
+    }
+
+    function getTotalCallCost() {
+        return callsTotalCost;
+    }
+
+    function getTotalSmsCost() {
+        return smsCostTotal;
+    }
+
+    function SendSms() {
+        
+        if (!hasReachedCriticalLevel) {
+
+            smsCostTotal += theSmsCost;
+        }
+        
+        
+    }
+
+    function hasReachedCriticalLevel() {
+        return getTotalCost() >= getCriticalLevel()
+    }
+
+    function totalClassName() {
+        if (getTotalCost() >= getWarningLevel()) {
+            return "warning";
+        }
+
+        if (hasReachedCriticalLevel) {
+            return "critical";
+        }
+
     }
 
     return {
@@ -50,6 +99,13 @@ function BillWithSetting() {
         getWarningLevel,
         setCriticalLevel,
         getCriticalLevel,
+        makeCall,
+        getTotalCost,
+        getTotalCallCost,
+        getTotalSmsCost,
+        SendSms,
+        totalClassName,
+        
     }
 
 
