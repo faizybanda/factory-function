@@ -62,6 +62,7 @@ describe("the testing shoulld work", function () {
             settingsBill.makeCall();
             settingsBill.makeCall();
             settingsBill.makeCall();
+            settingsBill.makeCall();
 
             assert.equal(8.25, settingsBill.getTotalCost());
             assert.equal(8.25, settingsBill.getTotalCallCost());
